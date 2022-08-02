@@ -1,10 +1,8 @@
-import React from 'react'
-import {StyleSheet, View, Text, Image} from 'react-native'
-import { getImageFromApi } from '../API/TMDBApi'
+import React from 'react';
+import {StyleSheet, View, Text, Image} from 'react-native';
+import { getImageFromApi } from '../API/TMDBApi';
 
-class FilmItem extends React.Component {
-    render() {
-        const film = this.props.film
+function FilmItem({film}) {
         return (
             <View style={styles.main_container}>
                 <Image style={styles.images} source={{uri: getImageFromApi(film.poster_path)}} />
@@ -20,10 +18,8 @@ class FilmItem extends React.Component {
                         <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
                     </View>
                 </View>
-
             </View>
         )
-    }
 }
 
 const styles = StyleSheet.create({

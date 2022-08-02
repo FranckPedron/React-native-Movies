@@ -1,59 +1,53 @@
-import React from 'react'
-import {StyleSheet, View, Button, TextInput, FlatList, Text} from 'react-native'
+import React, {useState} from 'react'
+import {StyleSheet, View, Button, TextInput, FlatList} from 'react-native'
 
 import FilmItem from './FilmItem'
-import { getFilmsFromApiWithSearchedText } from '../API/TMDBApi'
+import {getFilmsFromApiWithSearchedText} from '../API/TMDBApi'
 
-class Search extends React.Component {
+function Search() {
+    const [films, setFilms] = useState([]);
+    const [searchedText, setSearchedText] = useState("")
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            films: [],
-        }
-        this.searchedText= ""
-    }
-
-    _loadFilms() {
-        if (this.searchedText.length > 0) {
-            getFilmsFromApiWithSearchedText(this.searchedText).then(data => this.setState({ films: data.results }));
-    
+    function loadFilms() {
+        if (searchedText.length > 0) {
+            getFilmsFromApiWithSearchedText(searchedText)
+                .then(data => setFilms(data.results));
         }
     }
-    _searchTextInputChanged(text) {
-        this.searchedText = text
+
+    function searchTextInputChanged(text) {
+        setSearchedText(text);
     }
 
-    render() {
-        return (
-            <View style={styles.main_container}>
-                <TextInput onChangeText={(text) => this._searchTextInputChanged(text)} style={styles.textinput} placeholder="Titre du film"/>
-                <Button style={styles.bouton} title="Rechercher" onPress={() => this._loadFilms()}/>
-                <FlatList
-                    data={this.state.films}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => <FilmItem film={item}/>}
-                />
-            </View>
-        )
-    }
+    return (
+        <View style={styles.main_container}>
+            <TextInput onChangeText={(text) => searchTextInputChanged(text)} style={styles.textinput}
+                       placeholder="Titre du film"/>
+            <Button style={styles.bouton} title="Rechercher" onPress={() => loadFilms()}/>
+            <FlatList
+                data={films}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({item}) => <FilmItem film={item}/>}
+            />
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
-    main_container:{
+    main_container: {
         marginTop: 20,
         flex: 1
     },
     textinput: {
         marginLeft: 5,
-        marginRight:5,
+        marginRight: 5,
         height: 50,
         borderColor: 'black',
         borderWidth: 1,
-        paddingLeft:5
+        paddingLeft: 5
     },
     bouton: {
-        height:50
+        height: 50
     }
 })
 
