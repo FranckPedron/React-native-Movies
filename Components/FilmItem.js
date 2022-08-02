@@ -1,25 +1,25 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
-import { getImageFromApi } from '../API/TMDBApi';
+import {getImageFromApi} from '../API/TMDBApi';
 
 function FilmItem({film}) {
-        return (
-            <View style={styles.main_container}>
-                <Image style={styles.images} source={{uri: getImageFromApi(film.poster_path)}} />
-                <View style={styles.content_container}>
-                    <View style={styles.header_container}>
-                        <Text style={styles.title_text}>{film.title}</Text>
-                        <Text style={styles.vote_text}>{film.vote_average}</Text>
-                    </View>
-                    <View style={styles.description_container}>
-                        <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
-                    </View>
-                    <View style={styles.date_container}>
-                        <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
-                    </View>
+    return (
+        <View style={styles.main_container}>
+            <Image style={styles.images} source={{uri: getImageFromApi(film.poster_path)}}/>
+            <View style={styles.content_container}>
+                <View style={styles.header_container}>
+                    <Text style={styles.title_text}>{film.title}</Text>
+                    <Text style={styles.vote_text}>{film.vote_average}</Text>
+                </View>
+                <View style={styles.description_container}>
+                    <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
+                </View>
+                <View style={styles.date_container}>
+                    <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
                 </View>
             </View>
-        )
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -43,30 +43,30 @@ const styles = StyleSheet.create({
     content_container: {
         flex: 1,
         margin: 5
-      },
-      header_container: {
+    },
+    header_container: {
         flex: 3,
         flexDirection: 'row'
-      },
-      vote_text: {
+    },
+    vote_text: {
         fontWeight: 'bold',
         fontSize: 26,
         color: '#666666'
-      },
-      description_container: {
+    },
+    description_container: {
         flex: 7
-      },
-      description_text: {
+    },
+    description_text: {
         fontStyle: 'italic',
         color: '#666666'
-      },
-      date_container: {
+    },
+    date_container: {
         flex: 1
-      },
-      date_text: {
+    },
+    date_text: {
         textAlign: 'right',
         fontSize: 14
-      }
+    }
 })
 
 export default FilmItem
